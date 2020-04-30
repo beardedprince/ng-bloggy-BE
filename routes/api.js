@@ -26,7 +26,7 @@ await Posts.find({}, (err, result ) => {
     } else {
         res.status(200).send(result)
     }
-})
+}).sort( { updatedAt: -1 } )
 })
 
 route.get('/post/:id', async (req, res) => {
