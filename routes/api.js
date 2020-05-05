@@ -13,7 +13,6 @@ const route = express.Router()
 route.post('/post', (req, res) => {
     
     const postBody = req.body
-    postBody.postedBy = '5eb0215199c77f4efcf3f0dd'
     const post = new Posts(postBody)
     console.log(post)
     post.save( (err, result) => {
