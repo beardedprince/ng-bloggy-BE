@@ -6,7 +6,12 @@ const Schema = mongoose.Schema
 const PostSchema = Schema({
     title: String,
     postbody: String,
-    date: {type: String, default: Date.now}
+    date: {type: Date, default: Date.now},
+    postedBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
+    
 })
 
 PostSchema.plugin(timestamps)
