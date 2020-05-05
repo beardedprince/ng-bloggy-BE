@@ -101,21 +101,21 @@ route.delete('/post/:id', async (req, res) => {
 
 
 
-// practice
-route.get('/post/users/:id', async (req, res) => {
-    const userDoc = req.body
-    const authorId = new Users(userDoc)
-    console.log(authorId._id)
-    Users.findOne({authorId}, (err, data) => {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log('user post not  ', data)
-            res.status(200).send(data)
-        }
-    }).populate('postedBy')
+// // practice
+// route.get('/post/users/:id', async (req, res) => {
+//     const userDoc = req.body
+//     const authorId = new Users(userDoc)
+//     console.log(authorId._id)
+//     Users.findOne({authorId}, (err, data) => {
+//         if (err) {
+//             console.log(err)
+//         } else {
+//             console.log('user post not  ', data)
+//             res.status(200).send(data)
+//         }
+//     }).populate('postedBy')
     
-})
+// })
 
 
 
