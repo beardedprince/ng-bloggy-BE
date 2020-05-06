@@ -1,4 +1,7 @@
 const express = require('express')
+const multer = require('multer')
+const path = require('path')
+
 
 const userRoute = express.Router()
 
@@ -6,6 +9,43 @@ const Users = require('../model/user')
 
 const Posts = require('../model/post')
 
+
+
+
+// set storage engine
+const storage = multer.diskStorage({
+    destination: './public/uploads',
+    filename : function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+})
+
+// initialize uplaod variable 
+const upload = multer({ 
+    storage: storage,
+    limits: {
+        fileSize: 1024
+    },
+    fileFilter: function(req, res, cb) {
+
+    }
+})
+
+
+userRoute.post('/api/upload', upload.single('photo'), function (req, res) {
+    if (!req.file) {
+        console.log("No file received");
+        return res.send({
+          success: false
+        });
+    
+      } else {
+        console.log('file received');
+        return res.send({
+          success: true
+        })
+      }
+});
 
 
 userRoute.post('/users', (req, res) => {
@@ -16,6 +56,7 @@ userRoute.post('/users', (req, res) => {
             console.log('err')
         } else {
             res.status(200).send(result)
+            console.log(result)
         }
     })
 })
