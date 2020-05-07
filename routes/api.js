@@ -10,16 +10,23 @@ const route = express.Router()
 
 
 // create a new post
-route.post('/post', (req, res) => {
-    
+route.post('/post/:id', (req, res) => {
     const postBody = req.body
+    postBody.postedBy = req.params.id
     const post = new Posts(postBody)
     console.log(post)
     post.save( (err, result) => {
         if(err) {
+            res.status(404).json({
+                message: 'wrong resource'
+            })
             console.log('err')
+
         } else {
-            res.status(200).send(result)
+            res.status(200).json({
+                message: 'success'
+            })
+           
         }
     })
 })
