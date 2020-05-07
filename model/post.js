@@ -7,10 +7,10 @@ const PostSchema = Schema({
     title: String,
     postbody: String,
     date: {type: Date, default: Date.now},
-    postedBy: [{
+    postedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
-    }]
+    }
     
 })
 

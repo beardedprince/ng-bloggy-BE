@@ -9,7 +9,7 @@ const Users = require('../model/user')
 const route = express.Router()
 
 
-// create a new post
+// create a new post by user id
 route.post('/post/:id', (req, res) => {
     const postBody = req.body
     postBody.postedBy = req.params.id
@@ -54,6 +54,20 @@ route.get('/post/:id', async (req, res) => {
         }
     }).populate('postedBy')
     
+})
+
+
+// get postby its specific user ID
+route.get('/post/:id', async (req, res) => {
+   
+    await Posts.find({postedBy}, req.params.id, (err, data) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('data ', data.postedBy)
+            res.status(200).json({data: 'data'})
+        }
+    }).sort( { updatedAt: -1 } ).populate('postedBy')
 })
 
 

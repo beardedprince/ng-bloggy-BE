@@ -1,10 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-// const multer = require('multer')
-// const path = require('path')
-// var cloudinary = require('cloudinary');
-// const cloudinaryStorage  = require('multer-storage-cloudinary')
 
 
 
@@ -58,23 +54,6 @@ app.get('/', (req, res) => {
                 <h1> ng-bloggy backend currently brewing 🔥🔥✌ </h1> 
                 </div>`)
 })
-
-// app.post('/upload', parser.single('avatar'), (req, res, next,  err) => {
-//     if (err) {
-//         res.json({message: 'err'})
-//         console.log(err.message)
-//     } else {
-//          console.log(req.file) // to see what is returned to you
-//     }
-   
-// //     const image = {};
-// //   image.url = req.file.url;
-// //   image.id = req.file.public_id;
-// //   Image.create(image) // save image information in database
-// //     .then(newImage => res.json(newImage))
-// //     .catch(err => console.log(err));
-// })
-
 
 
 
