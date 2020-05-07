@@ -1,5 +1,5 @@
 const express = require('express')
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 
 const userRoute = express.Router()
@@ -22,10 +22,9 @@ userRoute.post('/users', (req, res) => {
         if(err) {
             console.log('err')
         } else {
-            let payload = {subject: user._id}
-            let token = jwt.sign(payload, 'secretKey')
-            res.status(200).send({token})
-            console.log(token)
+            // let payload = {subject: user._id}
+            // let token = jwt.sign(payload, 'secretKey')
+            res.status(200).send(result)
             console.log(result._id)
         }
     })
