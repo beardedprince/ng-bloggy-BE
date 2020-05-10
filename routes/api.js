@@ -40,7 +40,9 @@ route.get('/post', async (req, res) => {
         } else {
             res.status(200).send(result)
         }
-    }).sort( { updatedAt: -1 } ).populate('postedBy', 'comments')
+    }).sort( { updatedAt: -1 } )
+    .populate( 'postedBy')
+   
 })
 
 // get post by its ID
@@ -52,7 +54,9 @@ route.get('/post/:id', async (req, res) => {
             console.log('data ', data)
             res.status(200).send(data)
         }
-    }).populate( 'postedBy')
+    })
+    .populate( 'postedBy')
+   
     
 })
 
@@ -98,63 +102,6 @@ route.delete('/post/:id', async (req, res) => {
     } catch (error) {
         res.status(500).send(error)
     }   
-})
-
-
-// allow user create comment
-route.post('/comment/:id', (req, res) => {
-   
-    const postbody = req.body 
-    postbody.post = req.params.id
-    const comment = new Comments(postbody)
-    comment.save((err, result)=> {
-        if(err) {
-            res.status(404).json({
-                message: 'error occured'
-            })
-            console.log(err)
-        } else {
-            res.status(200).json({
-                message: 'comment successful',
-                data: result
-            })
-        }
-    })
-})
-
-// get user comment 
-route.get('/comments', async (req, res) => {
-    await Comments.find({}, (err, result)=> {
-        if(err) {
-            res.status(404).json({
-                message: 'error occured while getting comment'
-            })
-            console.log(err)
-        } else {
-            res.status(200).json({
-                message: 'comments successful gotten',
-                data: result
-            })
-        }
-    }).sort( { updatedAt: 1 } ).populate('post')
-})
-
-
-// get user comment by id
-route.get('/comment:id', async (req, res) => {
-    await Comments.findById({}, (err, result)=> {
-        if(err) {
-            res.status(404).json({
-                message: 'error occured while getting comment'
-            })
-            console.log(err)
-        } else {
-            res.status(200).json({
-                message: 'comments successful gotten',
-                data: result
-            })
-        }
-    }).sort( { updatedAt: 1 } ).populate('post')
 })
 
 

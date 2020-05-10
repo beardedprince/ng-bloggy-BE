@@ -43,6 +43,24 @@ commentRoute.get('/comments', async (req, res) => {
             console.log(err)
         } else {
             res.status(200).json({
+                message: 'All comments successful gotten',
+                data: result
+            })
+        }
+    }).sort( { updatedAt: 1 } ).populate('post')
+})
+
+
+commentRoute.get('/comments/:id', async (req, res) => {
+   
+    await Comments.findById(req.params.id, (err, result)=> {
+        if(err) {
+            res.status(404).json({
+                message: 'error occured while getting comment'
+            })
+            console.log(err)
+        } else {
+            res.status(200).json({
                 message: 'comments successful gotten',
                 data: result
             })
