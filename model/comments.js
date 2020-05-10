@@ -3,8 +3,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const CommentSchema = Schema({
-    commentBy: String,
+    name: String,
     comment: String,
+    email: String,
     post: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'post'

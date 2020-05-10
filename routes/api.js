@@ -40,12 +40,11 @@ route.get('/post', async (req, res) => {
         } else {
             res.status(200).send(result)
         }
-    }).sort( { updatedAt: -1 } ).populate('postedBy')
+    }).sort( { updatedAt: -1 } ).populate('postedBy', 'comments')
 })
 
 // get post by its ID
 route.get('/post/:id', async (req, res) => {
-    
     Posts.findById(req.params.id, (err, data) => {
         if (err) {
             console.log(err)
@@ -103,11 +102,11 @@ route.delete('/post/:id', async (req, res) => {
 
 
 // allow user create comment
-route.post('/post/:id/comment', (req, res) => {
+route.post('/comment/:id', (req, res) => {
    
     const postbody = req.body 
-    postbody.comments  = req.params.id
-    const comment = new Posts(postbody)
+    postbody.post = req.params.id
+    const comment = new Comments(postbody)
     comment.save((err, result)=> {
         if(err) {
             res.status(404).json({
@@ -123,37 +122,41 @@ route.post('/post/:id/comment', (req, res) => {
     })
 })
 
-// // get user comment by id
-// route.get('/post/:id/comment', async (req, res) => {
-//     await Posts.findById(req.params.id, (err, result)=> {
-//         if(err) {
-//             res.status(404).json({
-//                 message: 'error occured while getting comment'
-//             })
-//             console.log(err)
-//         } else {
-//             res.status(200).json({
-//                 message: 'comments successful gotten',
-//                 data: result
-//             })
-//         }
-//     }).sort( { updatedAt: 1 } ).count().populate('comments')
-// })
+// get user comment 
+route.get('/comments', async (req, res) => {
+    await Comments.find({}, (err, result)=> {
+        if(err) {
+            res.status(404).json({
+                message: 'error occured while getting comment'
+            })
+            console.log(err)
+        } else {
+            res.status(200).json({
+                message: 'comments successful gotten',
+                data: result
+            })
+        }
+    }).sort( { updatedAt: 1 } ).populate('post')
+})
 
-// route.get('/comment/:id', async (req, res) => {
-//     await Comments.findById(req.params.id, (err, result)=> {
-//         if(err) {
-//             res.status(404).json({
-//                 message: 'error occured while getting comment'
-//             })
-//             console.log(err)
-//         } else {
-//             res.status(200).json({
-//                 message: result
-//             })
-//         }
-//     }).populate('post')
-// })
+
+// get user comment by id
+route.get('/comment:id', async (req, res) => {
+    await Comments.findById({}, (err, result)=> {
+        if(err) {
+            res.status(404).json({
+                message: 'error occured while getting comment'
+            })
+            console.log(err)
+        } else {
+            res.status(200).json({
+                message: 'comments successful gotten',
+                data: result
+            })
+        }
+    }).sort( { updatedAt: 1 } ).populate('post')
+})
+
 
 
 

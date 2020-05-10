@@ -9,6 +9,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const route = require('./routes/api')
 const userRoute = require('./routes/user')
+const commentRoute = require('./routes/comment.route')
 const config = require('./config/db')
 
 
@@ -44,6 +45,7 @@ app.use(cors())
 
 app.use('/api', route)
 app.use('/api', userRoute)
+app.use('/api', commentRoute)
 
 
 // app.use('/public', express.static('public'));
