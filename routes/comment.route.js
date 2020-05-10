@@ -60,7 +60,7 @@ commentRoute.get('/comments/:id', async (req, res) => {
             console.log(err)
         } else {
             res.status(200).send({
-                message: data,
+                message: result,
             })
         }
     }).sort( { updatedAt: 1 } ).populate('post')
