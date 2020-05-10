@@ -16,7 +16,7 @@ const commentRoute = express.Router()
 commentRoute.post('/comment/:id', (req, res) => {
    
     const postbody = req.body 
-    postbody.post = req.params.id
+    postbody.postID = req.params.id
     const comment = new Comments(postbody)
     comment.save((err, result)=> {
         if(err) {
@@ -52,8 +52,7 @@ commentRoute.get('/comments', async (req, res) => {
 
 
 commentRoute.get('/comments/:id', async (req, res) => {
-   
-    await Comments.findById(req.params.id, (err, result)=> {
+    await Comments.find({postID: req.params.id}, (err, result)=> {
         if(err) {
             res.status(404).json({
                 message: 'error occured while getting comment'

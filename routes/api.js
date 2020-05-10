@@ -55,7 +55,7 @@ route.get('/post/:id', async (req, res) => {
             res.status(200).send(data)
         }
     })
-    .populate( 'postedBy')
+    .populate( 'comments')
    
     
 })
