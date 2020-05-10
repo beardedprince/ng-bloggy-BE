@@ -61,7 +61,6 @@ commentRoute.get('/comments/:id', async (req, res) => {
         } else {
             res.status(200).json({
                 message: 'comments successful gotten',
-                data: result
             })
         }
     }).sort( { updatedAt: 1 } ).populate('post')
