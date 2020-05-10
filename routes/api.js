@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 
 const Posts = require('../model/post')
 const Users = require('../model/user')
+const Comments = require('../model/comments')
 
 
 
@@ -52,7 +53,7 @@ route.get('/post/:id', async (req, res) => {
             console.log('data ', data)
             res.status(200).send(data)
         }
-    }).populate('postedBy')
+    }).populate( 'postedBy')
     
 })
 
@@ -87,25 +88,6 @@ route.put('/post/:id', (req, res) => {
     })
 })
 
-// route.delete('/post/:id', (req, res) => {
-//     Posts.findByIdAndDelete(req.params.id, (err, result) => {
-//         if (err) {
-//             console.log(err)
-//         } else {
-//             res.status(200).send(result)
-//             console.log('data deleted successfully')
-//         }
-//     })
-// })
-
-
-// route.delete('/post/:id', async (req, res) => {
-//     const post = await Posts.findByIdAndDelete(req.params.id);
-//     if (!post) {
-//         return res.status(404).send('Post not found!')
-//     }
-//     return res.status(200).send(`${req.body.title} deleted`)
-// })
 
 // delete post by its ID
 route.delete('/post/:id', async (req, res) => {
@@ -120,27 +102,58 @@ route.delete('/post/:id', async (req, res) => {
 })
 
 
+// allow user create comment
+route.post('/post/:id/comment', (req, res) => {
+   
+    const postbody = req.body 
+    postbody.comments  = req.params.id
+    const comment = new Posts(postbody)
+    comment.save((err, result)=> {
+        if(err) {
+            res.status(404).json({
+                message: 'error occured'
+            })
+            console.log(err)
+        } else {
+            res.status(200).json({
+                message: 'comment successful',
+                data: result
+            })
+        }
+    })
+})
 
-// // practice
-// route.get('/post/users/:id', async (req, res) => {
-//     const userDoc = req.body
-//     const authorId = new Users(userDoc)
-//     console.log(authorId._id)
-//     Users.findOne({authorId}, (err, data) => {
-//         if (err) {
+// // get user comment by id
+// route.get('/post/:id/comment', async (req, res) => {
+//     await Posts.findById(req.params.id, (err, result)=> {
+//         if(err) {
+//             res.status(404).json({
+//                 message: 'error occured while getting comment'
+//             })
 //             console.log(err)
 //         } else {
-//             console.log('user post not  ', data)
-//             res.status(200).send(data)
+//             res.status(200).json({
+//                 message: 'comments successful gotten',
+//                 data: result
+//             })
 //         }
-//     }).populate('postedBy')
-    
+//     }).sort( { updatedAt: 1 } ).count().populate('comments')
 // })
 
-
-
-
-
+// route.get('/comment/:id', async (req, res) => {
+//     await Comments.findById(req.params.id, (err, result)=> {
+//         if(err) {
+//             res.status(404).json({
+//                 message: 'error occured while getting comment'
+//             })
+//             console.log(err)
+//         } else {
+//             res.status(200).json({
+//                 message: result
+//             })
+//         }
+//     }).populate('post')
+// })
 
 
 
