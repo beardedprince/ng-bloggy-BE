@@ -67,7 +67,7 @@ userRoute.delete('/users/:id', async (req, res) => {
             })
         }
     }).populate('myPosts')
-    Users.save()
+    
 })
 
 

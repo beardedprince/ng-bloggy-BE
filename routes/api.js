@@ -61,14 +61,14 @@ route.get('/post/:id', async (req, res) => {
 
 
 // get postby its specific user ID
-route.get('/posts/:id', async (req, res) => {
+route.get('/post/user/:id', async (req, res) => {
    
     await Posts.find({postedBy: req.params.id},  (err, data) => {
         if (err) {
             console.log(err)
         } else {
             console.log('data ', data.postedBy)
-            res.status(200).json({data: 'data'})
+            res.status(200).json({data: data })
         }
     }).sort( { updatedAt: -1 } ).populate('postedBy')
 })
