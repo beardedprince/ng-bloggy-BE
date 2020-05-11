@@ -47,7 +47,7 @@ commentRoute.get('/comments', async (req, res) => {
                 data: result
             })
         }
-    }).sort( { updatedAt: -1 } ).populate('post')
+    }).sort({ date: -1}).populate('post')
 })
 
 
@@ -63,7 +63,7 @@ commentRoute.get('/comments/:id', async (req, res) => {
                 message: result,
             })
         }
-    }).sort( { name: -1 } ).populate('post')
+    }).sort({ date: -1}).populate('post')
 })
 
 
@@ -85,7 +85,21 @@ commentRoute.get('/comment:id', async (req, res) => {
 })
 
 
-
+commentRoute.delete('/comments', async (req, res) => {
+    await Comments.deleteMany({}, (err, result)=> {
+        if(err) {
+            res.status(404).json({
+                message: 'error occured while getting comment'
+            })
+            console.log(err)
+        } else {
+            res.status(200).json({
+                message: 'All comments successful gotten',
+                data: result
+            })
+        }
+    }).sort({ updatedAt: -1}).populate('post')
+})
 
 
 module.exports = commentRoute

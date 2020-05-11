@@ -10,22 +10,20 @@ const Posts = require('../model/post')
 
 
 
-
-
-
 userRoute.post('/users', (req, res) => {
     const userBody = req.body
-    userBody.postedBy = req.params.id
-    console.log(userBody.postedBy)
+    userBody.postID = req.params.id
     const user = new Users(userBody)
     user.save( (err, result) => {
         if(err) {
-            console.log('err')
+            res.status(404).json({
+                message: 'error occured'
+            })
+            console.log(err)
         } else {
             // let payload = {subject: user._id}
             // let token = jwt.sign(payload, 'secretKey')
             res.status(200).send(result)
-            console.log(result._id)
         }
     })
 })
@@ -39,63 +37,41 @@ userRoute.get('/users', async (req, res) => {
         } else {
             res.status(200).send(result)
         }
-    }).populate('myPosts')
+    }).populate('postID')
 })
 
 
 userRoute.get('/users/:id', async (req, res) => {
-    await Users.findById(req.params.id, (err, data) => {
+    await Users.findById({postID: req.params.id}, (err, data) => {
         if(err) {
-            console.log('err')
+            res.status(404).json({
+                message: 'error occured while getting users post'
+            })
         } else {
             res.status(200).json({message: data})
             console.log(data)
         }
-    }).populate('myPosts')
+    }).populate('post')
     
 })
 
 
-userRoute.delete('/users/:id', async (req, res) => {
+// userRoute.delete('/users/:id', async (req, res) => {
     
-    await Users.findByIdAndDelete( req.params.id, (err, result) => {
-        if(err) {
-            console.log('err')
-        } else {
-            res.status(200).json({
-                message: 'deleted'
-            })
-        }
-    }).populate('myPosts')
-    Users.save()
-})
-
-
-// Users.findById(req.params.id, (req, res) => {
-//     if(err) {
-//         res.status(400).send('error')
-//     }
-//     const newPost = {
-//         title: req.body.title,
-//         postbody: req.body.postbody
-//     }
-//     Posts.create(newPost, (err, result) => {
+//     await Users.findByIdAndDelete( req.params.id, (err, result) => {
 //         if(err) {
-//             res.status(400).send('not posted')
+//             console.log('err')
+//         } else {
+//             res.status(200).json({
+//                 message: 'deleted'
+//             })
 //         }
-//         Users.postedBy.push(newPost)
-//         Users.save((err, saved) => {
-//             if(err) {
-//                 res.status(400).send('error')
-//             } else {
-//                 res.status(200).json({
-//                     message: "successful",
-//                     data: saved
-//                 })
-//             }
-//         })
-//     })
+//     }).populate('myPosts')
+//     Users.save()
 // })
+
+
+
 
 
 module.exports = userRoute

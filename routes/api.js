@@ -47,7 +47,7 @@ route.get('/post', async (req, res) => {
 
 // get post by its ID
 route.get('/post/:id', async (req, res) => {
-    Posts.findById(req.params.id, (err, data) => {
+    Posts.findById({postedBy: req.params.id}, (err, data) => {
         if (err) {
             console.log(err)
         } else {

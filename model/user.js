@@ -10,10 +10,16 @@ var UserSchema = new mongoose.Schema({
     //     github: String,
 
     // }],
-    myPosts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'post'
-    }],
+    postID: {
+        type: mongoose.Types.ObjectId,
+        ref: 'post',
+        required: true,
+    },
+    // postID: {
+    //     type: mongoose.Types.ObjectId,
+    //     ref: 'post',
+    //     required: true,
+    // }
     
     date: {type: Date, default: Date.now}
 });
