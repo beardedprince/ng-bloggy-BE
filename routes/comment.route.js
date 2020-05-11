@@ -47,7 +47,7 @@ commentRoute.get('/comments', async (req, res) => {
                 data: result
             })
         }
-    }).sort( { updatedAt: 1 } ).populate('post')
+    }).sort( { updatedAt: -1 } ).populate('post')
 })
 
 
@@ -63,7 +63,7 @@ commentRoute.get('/comments/:id', async (req, res) => {
                 message: result,
             })
         }
-    }).sort( { updatedAt: 1 } ).populate('post')
+    }).sort( { name: -1 } ).populate('post')
 })
 
 
@@ -81,7 +81,7 @@ commentRoute.get('/comment:id', async (req, res) => {
                 data: result
             })
         }
-    }).sort( { updatedAt: 1 } ).populate('post')
+    }).sort( { name: 1 } ).populate('post')
 })
 
 
