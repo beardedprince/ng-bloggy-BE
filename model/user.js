@@ -10,7 +10,7 @@ var UserSchema = new mongoose.Schema({
     //     github: String,
 
     // }],
-    postID: {
+    myPosts: {
         type: mongoose.Types.ObjectId,
         ref: 'post',
         required: true,
