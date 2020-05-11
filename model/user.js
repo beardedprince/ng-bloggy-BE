@@ -5,21 +5,15 @@ var UserSchema = new mongoose.Schema({
     username: String,
     avatar: String,
     description: String,
-    // social: [{
-    //     twitter: String,
-    //     github: String,
-
+    // myPosts: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'post'
     // }],
-    myPosts: {
+    postID: [{
         type: mongoose.Types.ObjectId,
         ref: 'post',
         required: true,
-    },
-    // postID: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'post',
-    //     required: true,
-    // }
+    }],
     
     date: {type: Date, default: Date.now}
 });

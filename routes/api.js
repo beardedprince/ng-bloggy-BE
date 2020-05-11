@@ -47,7 +47,7 @@ route.get('/post', async (req, res) => {
 
 // get post by its ID
 route.get('/post/:id', async (req, res) => {
-    Posts.findById({postedBy: req.params.id}, (err, data) => {
+    Posts.find({postedBy: req.params.id}, (err, data) => {
         if (err) {
             console.log(err)
         } else {
@@ -62,17 +62,17 @@ route.get('/post/:id', async (req, res) => {
 
 
 // get postby its specific user ID
-route.get('/post/:id', async (req, res) => {
-   
-    await Posts.find({postedBy}, req.params.id, (err, data) => {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log('data ', data.postedBy)
-            res.status(200).json({data: 'data'})
-        }
-    }).sort( { updatedAt: -1 } ).populate('postedBy')
-})
+// route.get('/post/:id', async (req, res) => {
+//    const poster = postedBy._id
+//     await Posts.find({ poster : req.params.id}, req.params.id, (err, data) => {
+//         if (err) {
+//             console.log(err)
+//         } else {
+//             console.log('data ', data.postedBy)
+//             res.status(200).json({data: 'data'})
+//         }
+//     }).sort( { updatedAt: -1 } ).populate('postedBy')
+// })
 
 
 // update post with user ID

@@ -39,19 +39,19 @@ userRoute.get('/users', async (req, res) => {
         } else {
             res.status(200).send(result)
         }
-    }).populate('myPosts')
+    }).populate('post')
 })
 
 
 userRoute.get('/users/:id', async (req, res) => {
-    await Users.findById(req.params.id, (err, data) => {
+    await Users.findById({postID: req.params.id}, (err, data) => {
         if(err) {
             console.log('err')
         } else {
             res.status(200).json({message: data})
             console.log(data)
         }
-    }).populate('myPosts')
+    }).populate('post')
     
 })
 
