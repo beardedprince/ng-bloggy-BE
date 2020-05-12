@@ -12,7 +12,7 @@ const commentRoute = express.Router()
 
 
 
-// allow user create comment
+// allow user create comment on a partucular post by the post ID
 commentRoute.post('/comment/:id', (req, res) => {
    
     const postbody = req.body 
@@ -33,7 +33,7 @@ commentRoute.post('/comment/:id', (req, res) => {
     })
 })
 
-// get user comment 
+// get all comment 
 commentRoute.get('/comments', async (req, res) => {
     await Comments.find({}, (err, result)=> {
         if(err) {
@@ -48,9 +48,10 @@ commentRoute.get('/comments', async (req, res) => {
             })
         }
     }).sort({ date: -1}).populate('post')
+    
 })
 
-
+// get user comment by id
 commentRoute.get('/comments/:id', async (req, res) => {
     await Comments.find({postID: req.params.id}, (err, result)=> {
         if(err) {
@@ -64,6 +65,24 @@ commentRoute.get('/comments/:id', async (req, res) => {
             })
         }
     }).sort({ date: -1}).populate('post')
+    
+})
+
+// get comment cound of a particular post by its ID
+commentRoute.get('/comments/count/:id', async (req, res) => {
+    await Comments.count({postID: req.params.id}, (err, result)=> {
+        if(err) {
+            res.status(404).json({
+                message: 'error occured while getting comment'
+            })
+            console.log(err)
+        } else {
+            res.status(200).send({
+                message: result,
+            })
+        }
+    }).sort({ date: -1}).populate('post')
+    
 })
 
 
@@ -85,6 +104,7 @@ commentRoute.get('/comment:id', async (req, res) => {
 })
 
 
+// delete all comments
 commentRoute.delete('/comments', async (req, res) => {
     await Comments.deleteMany({}, (err, result)=> {
         if(err) {
