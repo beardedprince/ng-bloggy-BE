@@ -83,6 +83,7 @@ route.put('/post/:id', (req, res) => {
            
             result.title = req.body.title;
             result.postbody = req.body.postbody
+            result.tags = req.body.tags
             
             result.save()
             res.status(200).send(result)
