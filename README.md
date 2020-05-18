@@ -4,11 +4,11 @@
 
 ### Feature
 
-[x] User can create profile, create post, edit post and delete post
-[x] Viewers can comment on user post
-[ ] comment count
-[ ] Like / react to post
-[ ] Others coming... 
+- [x] User can create profile, create post, edit post and delete post
+- [x] Viewers can comment on user post
+- [ ] comment count
+- [ ] Like / react to post
+- [ ] Others coming... 
 
 ## API docs
 
