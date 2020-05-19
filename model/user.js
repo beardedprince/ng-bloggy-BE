@@ -5,6 +5,10 @@ var UserSchema = new mongoose.Schema({
     username: String,
     avatar: String,
     description: String,
+    socials: [{
+        twitter: String,
+        github: String
+    }],
     // myPosts: [{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'post'

@@ -25,7 +25,7 @@ userRoute.post('/users', (req, res) => {
             // let payload = {subject: user._id}
             // let token = jwt.sign(payload, 'secretKey')
             res.status(200).send(result)
-            console.log(result._id)
+            console.log(result)
         }
     })
 })
@@ -71,31 +71,6 @@ userRoute.delete('/users/:id', async (req, res) => {
 })
 
 
-// Users.findById(req.params.id, (req, res) => {
-//     if(err) {
-//         res.status(400).send('error')
-//     }
-//     const newPost = {
-//         title: req.body.title,
-//         postbody: req.body.postbody
-//     }
-//     Posts.create(newPost, (err, result) => {
-//         if(err) {
-//             res.status(400).send('not posted')
-//         }
-//         Users.postedBy.push(newPost)
-//         Users.save((err, saved) => {
-//             if(err) {
-//                 res.status(400).send('error')
-//             } else {
-//                 res.status(200).json({
-//                     message: "successful",
-//                     data: saved
-//                 })
-//             }
-//         })
-//     })
-// })
 
 
 module.exports = userRoute
