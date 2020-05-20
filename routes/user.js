@@ -55,6 +55,25 @@ userRoute.get('/users/:id', async (req, res) => {
 })
 
 
+// UPDATE user details
+userRoute.put('/users/:id', async (req, res) => {
+    
+    await Users.findById( req.params.id, (err, result) => {
+        if(err) {
+            console.log('err')
+        } else {
+            result.name = req.body.name
+            result.username = req.body.username
+            result.description = req.body.description
+            result.socials = req.body.socials
+
+            result.save()
+            res.status(200).send(result)
+        }
+    }).populate('post')
+})
+
+
 userRoute.get('/users/:id', async (req, res) => {
     await Users.findById({postID: req.params.id}, (err, data) => {
         if(err) {
