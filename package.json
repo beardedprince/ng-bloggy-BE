@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test":  "jest",
+    "test": "jest",
     "start": "node server.js"
   },
   "keywords": [],
@@ -28,7 +28,7 @@
   "devDependencies": {
     "jest": "^26.0.1",
     "supertest": "^4.0.2"
-  }, 
+  },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
