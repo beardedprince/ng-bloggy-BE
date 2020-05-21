@@ -30,7 +30,7 @@ userRoute.post('/users', (req, res) => {
     })
 })
 
-
+// GET all users
 userRoute.get('/users', async (req, res) => {
     
     await Users.find( {}, (err, result) => {
@@ -73,7 +73,7 @@ userRoute.put('/users/:id', async (req, res) => {
     }).populate('post')
 })
 
-
+// GET
 userRoute.get('/users/:id', async (req, res) => {
     await Users.findById({postID: req.params.id}, (err, data) => {
         if(err) {
@@ -86,7 +86,7 @@ userRoute.get('/users/:id', async (req, res) => {
     
 })
 
-
+//  DELETE a user with its ID
 userRoute.delete('/users/:id', async (req, res) => {
     
     await Users.findByIdAndDelete( req.params.id, (err, result) => {
