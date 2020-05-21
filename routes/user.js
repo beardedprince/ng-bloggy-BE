@@ -68,7 +68,8 @@ userRoute.put('/users/:id', async (req, res) => {
             result.socials = req.body.socials
 
             result.save()
-            res.status(200).send(result)
+            res.status(200).json({'success': result})
+            console.log(result)
         }
     }).populate('post')
 })
