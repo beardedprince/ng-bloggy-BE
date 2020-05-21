@@ -55,7 +55,7 @@ userRoute.get('/users/:id', async (req, res) => {
 })
 
 
-// UPDATE user details
+// UPDATE user details by ID
 userRoute.put('/users/:id', async (req, res) => {
     
     await Users.findById( req.params.id, (err, result) => {
