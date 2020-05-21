@@ -5,6 +5,7 @@
 ### Feature
 
 - [x] User can create profile, create post, edit post and delete post
+- [x] User can manage its own profile, update profile, and delete account
 - [x] Viewers can comment on user post
 - [ ] comment count
 - [ ] Like / react to post
