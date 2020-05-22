@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const multer = require('multer')
 
 
 
@@ -12,6 +13,9 @@ const userRoute = require('./routes/user')
 const commentRoute = require('./routes/comment.route')
 const config = require('./config/db')
 
+
+const upload = require('./multer')
+const cloudinary = require('./config/cloudinaryConfig')
 
 // cloudinary.config({
 //     cloud_name: process.env.CLOUD_NAME,
@@ -57,6 +61,17 @@ app.get('/', (req, res) => {
                 </div>`)
 })
 
+
+app.post('/upload', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            console.log('error', err)
+        } else {
+            console.log(req.file);
+            res.send('works')
+        }
+    })
+})
 
 
 app.listen(port, function() {

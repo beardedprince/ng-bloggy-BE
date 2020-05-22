@@ -60,6 +60,7 @@ userRoute.put('/users/:id', async (req, res) => {
     
     await Users.findById( req.params.id, (err, result) => {
         if(err) {
+            res.status(200).json({'message': err})
             console.log('err')
         } else {
             result.name = req.body.name
