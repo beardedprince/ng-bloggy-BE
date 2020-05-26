@@ -24,7 +24,7 @@ dotenv.config()
 
 
 const upload = require('./multer')
-const cloudConfig = require('./config/cloudinaryConfig')
+// const cloudConfig = require('./config/cloudinaryConfig')
 const Image = require('./model/image')
 
 // cloudinary.config({
