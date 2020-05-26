@@ -72,7 +72,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/upload', (req, res) => {
+app.post('/users', (req, res) => {
     upload(req, res, (err) => {
         if (err) {
             console.log('error', err)
@@ -80,9 +80,9 @@ app.post('/upload', (req, res) => {
             console.log(req.file);
             res.send('file uploaded successfully')
             cloudinary.config({
-                cloud_name: 'dcrjlvy1r',
-                api_key: '654778619781926',
-                api_secret: 'h1nYOaRH85ir7bHlk4qjVtg4ehs'
+                cloud_name: process.env.cloud_name,
+                api_key: process.env.api_key,
+                api_secret: process.env.api_secret
             })
 
             cloudinary.uploader.upload(req.file.path, function(result) { 

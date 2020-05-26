@@ -96,10 +96,11 @@ userRoute.delete('/users/:id', async (req, res) => {
             console.log('err')
         } else {
             res.status(200).json({
-                message:  `user ${result._id} deleted`
+                message:  `user ${result.id} deleted`
             })
         }
-    }).populate('myPosts')
+    })
+
     
 })
 
