@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const multer = require('multer')
+const dotenv = require('dotenv')
 const cloudinary = require('cloudinary').v2
 
 
@@ -17,9 +18,11 @@ const commentRoute = require('./routes/comment.route')
 const config = require('./config/db')
 
 
-const dotenv = require('dotenv')
 
-dotenv.config()
+
+
+
+
 
 
 
