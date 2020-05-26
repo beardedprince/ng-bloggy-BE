@@ -2,20 +2,30 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const multer = require('multer')
+const cloudinary = require('cloudinary').v2
 
 
 
 
 const app = express()
 const port = process.env.PORT || 3000
+
+
 const route = require('./routes/api')
 const userRoute = require('./routes/user')
 const commentRoute = require('./routes/comment.route')
 const config = require('./config/db')
 
 
+const dotenv = require('dotenv')
+
+dotenv.config()
+
+
+
 const upload = require('./multer')
-const cloudinary = require('./config/cloudinaryConfig')
+const cloudConfig = require('./config/cloudinaryConfig')
+const Image = require('./model/image')
 
 // cloudinary.config({
 //     cloud_name: process.env.CLOUD_NAME,
@@ -68,7 +78,27 @@ app.post('/upload', (req, res) => {
             console.log('error', err)
         } else {
             console.log(req.file);
-            res.send('works')
+            res.send('file uploaded successfully')
+            cloudinary.config({
+                cloud_name: 'dcrjlvy1r',
+                api_key: '654778619781926',
+                api_secret: 'h1nYOaRH85ir7bHlk4qjVtg4ehs'
+            })
+
+            cloudinary.uploader.upload(req.file.path, function(result) { 
+                
+                console.log('the result', result.secure_url)
+                // const image = new Image()
+                // req.body.userimage = result.secure_url;
+                // image.save((err, data) => {
+                //     if (err) {
+                //         console.log(err)
+                //         res.status(401).send('wrong resource')
+                //     } else {
+                //         res.status(200).send('image added')
+                //     }
+                // })
+            })
         }
     })
 })
